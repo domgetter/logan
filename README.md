@@ -14,23 +14,23 @@ Logic Analyzer for the Everdrive N8 Pro (NES and Famicom) OSv2.15 or greater
 
 ## Controls
 
-Controller 1:
-  A - start a reading of the pins
-  Select + A/B - change pin 0
-  Start + A/B - change pin 1
-  Left/Right - change starting dot to record voltages
-  Up/Down - change starting scanline to record voltages
+* Controller 1:
+  * A - start a reading of the pins
+  * Select + A/B - change pin 0
+  * Start + A/B - change pin 1
+  * Left/Right - change starting dot to record voltages
+  * Up/Down - change starting scanline to record voltages
 
-Controller 2:
-  Up/Down - scroll through output one line at a time
-  Right/Left - change polling rate, aka zoom level
+* Controller 2:
+  * Up/Down - scroll through output one line at a time
+  * Right/Left - change polling rate, aka zoom level
 
-Alt controls:
-  Controller 1 SNES:
-    left shoulder: zoom in
-    right shoulder: zoom out
-    SNES A - scroll down through data
-    SNES X - scroll up through data
+* Alt controls:
+  * Controller 1 SNES:
+    * left shoulder: zoom in
+    * right shoulder: zoom out
+    * SNES A - scroll down through data
+    * SNES X - scroll up through data
 
 ## Pin designations
 
@@ -109,7 +109,7 @@ Alt controls:
 * Automatically change scanline when dot overflows
   * when dot goes from 340 to 0, scanline will increase, and decrease on the opposite
 
-###0.2
+### 0.2
 
 * scanline support
 * repeat input for pin select
