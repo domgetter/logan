@@ -1,4 +1,4 @@
-# LoGan
+# LogAn
 
 Logic Analyzer for the Everdrive N8 Pro (NES and Famicom) OSv2.15 or greater
 
