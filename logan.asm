@@ -1410,7 +1410,7 @@ Main:
     STA VOLTAGES_COUNTER_RESET
     NOP
     LDA $FE
-    STA $8001
+    LDA $00FE
 
     @polling_data_ready:
       ;; Loop until the data is ready

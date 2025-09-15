@@ -1,0 +1,6 @@
+# Ignore Quartus-generated stuff
+*/db/
+*/incremental_db/
+*/output_files/
+*/quartus_output.txt
+*/top_assignment_defaults.qdf
