@@ -2,6 +2,18 @@
 
 Logic Analyzer for the Everdrive N8 Pro (NES and Famicom) OSv2.15 or greater
 
+### Overview
+
+![Logan overview](logan_overview_with_labels.png)
+
+### Zoom
+
+![Logan zoom showing hblank](logan_zoomed_showing_hblank.png)
+
+### Alignment waveform
+
+![Logan showing the alignment derived from CPU writes to PPU](logan_showing_alignment.png)
+
 ## Install
 
 1. Get logan.nes and logan.rbf from the most recent Release
