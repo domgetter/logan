@@ -382,6 +382,7 @@
     snes_r .byte
   .endstruct
 
+  sha_dummy_0: .res 1
   ppu_ctrl_buffer: .res 1
   ppu_mask_buffer: .res 1
   controller: .tag Controller
@@ -2388,6 +2389,22 @@ NMI:
   PHA
   TYA
   PHA
+
+  ;; The nametable buffer is 256 bytes, so this is in the middle of it
+  LDA $0400
+  STA $32
+
+  LDA #$F0
+  STA $30
+  LDA #$1E
+  STA $31
+  LDA #$55
+  LDX #$AA
+  LDY #$10
+  .byte $93, $30
+  
+  LDA $32
+  STA $0400
 
   LDA #$01
   STA vblank_happened
