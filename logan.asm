@@ -857,9 +857,27 @@ RESET:
 
   JSR DetectSNESController
 
+  ;; Setup sprites for SHA test
+  LDA #$00
+  .repeat 8, i
+    STA $0281 + 4*i
+    STA $0282 + 4*i
+  .endrepeat
+
+  .repeat 8, i
+    LDA #$20 + 8*i
+    STA $0283 + 4*i
+  .endrepeat
+
   JMP Main
 
 Main:
+
+  ;; Reset sprites for SHA test
+  .repeat 8, i
+  LDA #$50  + 8*i
+  STA $0280 + 4*i
+  .endrepeat
 
   LDA controller + Controller::select
   BEQ :+
@@ -2390,6 +2408,33 @@ NMI:
   TYA
   PHA
 
+  LDA $00
+  STA $80
+  LDA $0100
+  STA $81
+  LDA $0200
+  STA $82
+  LDA $0300
+  STA $83
+  LDA $0400
+  STA $84
+  LDA $0500
+  STA $85
+  LDA $0600
+  STA $86
+  LDA $0700
+  STA $87
+
+  LDA #$FF
+  STA $00
+  STA $0100
+  STA $0200
+  STA $0300
+  STA $0400
+  STA $0500
+  STA $0600
+  STA $0700
+
   ;; The nametable buffer is 256 bytes, so this is in the middle of it
   LDA $0400
   STA $32
@@ -2401,10 +2446,58 @@ NMI:
   LDA #$55
   LDX #$AA
   LDY #$10
-  .byte $93, $30
+  .byte $93, $30 ;; SHA ($30), Y :: $1EF0 + $10 == $1F00
   
   LDA $32
   STA $0400
+
+  ;; Copy the first-byte-of-page writes into Ycoords of sprites to see results
+  .repeat 8, i
+  LDA $00 + i*$100
+  CMP #$FF
+  BEQ :+
+    LDA $00 + i*$100
+    STA $280 + 4*(0 + i)
+  :
+  .endrepeat
+
+  ;; Check if more than one location was written to
+  .scope
+    num_locations_written = $A0
+
+    LDA #$00
+    STA num_locations_written
+
+    .repeat 8, i
+      LDA $00 + i*$100
+      CMP #$FF
+      BEQ :+
+        INC num_locations_written
+      :
+    .endrepeat
+
+    ;; Store num_locations_written to the first sprite
+    LDA num_locations_written
+    STA $0281
+  .endscope
+  
+  LDA $80
+  STA $00
+  LDA $81
+  STA $0100
+  LDA $82
+  STA $0200
+  LDA $83
+  STA $0300
+  LDA $84
+  STA $0400
+  LDA $85
+  STA $0500
+  LDA $86
+  STA $0600
+  LDA $87
+  STA $0700
+
 
   LDA #$01
   STA vblank_happened
@@ -2846,7 +2939,7 @@ pin_name_strings:
   pin_53_name: .asciiz "CIRAM A10     "
   pin_54_name: .asciiz "PPU ADDR in NT"
   pin_55_name: .asciiz "PPU ADDR in AT"
-  pin_56_name: .asciiz "MAP CPU OE    "
+  pin_56_name: .asciiz "CPU DAT = 0x93"
 
 .segment "VECTORS"
   .word NMI

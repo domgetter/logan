@@ -150,7 +150,7 @@ module map_000_s8(
 	
 	wire [56:0]pins = {
 	
-		/* 56 */ mao.map_cpu_oe,
+		/* 56 */ cpu.data[7:0] == 8'h93,//mao.map_cpu_oe,
 		/* 55 */ ppu_atr_ce,
 		/* 54 */ ppu_ntb_ce,
 		/* 53 */ mao.ciram_a10,
